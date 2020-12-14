@@ -1,0 +1,21 @@
+install.packages("titanic")
+library(titanic)
+head(titanic_train)
+require(rpart)
+titan_rpart <- rpart(Survived ~ Pclass+Sex+Age+SibSp+Parch+Fare, data = titanic_train)
+plot(titan_rpart) 
+text(titan_rpart)
+require(party)
+sapply(titanic_train, class)
+titanic_train$Sex <- as.numeric(titanic_train$Sex)
+#ctree
+titan_tree<-ctree(Survived ~ Pclass+Sex+Age+SibSp+Parch+Fare,data=titanic_train)
+plot(titan_tree)
+#hlcust
+titan_hh<-hclust(dist(titanic_train))
+plot(titan_hh)
+#randomforest
+library(randomForest)
+fit <- randomForest(Survived ~ Pclass+Sex+Age+SibSp+Parch+Fare,data=titanic_train)
+varImpPlot(fit)
+summary(fit)
